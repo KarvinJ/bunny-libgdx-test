@@ -12,14 +12,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class Main extends ApplicationAdapter {
 
-    private final int SCREEN_WIDTH = 1024;
+    private final int SCREEN_WIDTH = 1360;
     private final int SCREEN_HEIGHT = 768;
     private SpriteBatch batch;
     private BitmapFont font;
     private OrthographicCamera camera;
+    private ExtendViewport viewport;
     private Array<Bunny> bunnies;
     private Texture bunnyTexture;
     private Texture fontTexture;
@@ -38,7 +40,13 @@ public class Main extends ApplicationAdapter {
         bunnies = new Array<>();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        viewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
     private void addBunnies() {
@@ -58,8 +66,6 @@ public class Main extends ApplicationAdapter {
 
     private void update(float deltaTime) {
 
-        camera.update();
-
         if (Gdx.input.isTouched())
             addBunnies();
 
@@ -74,7 +80,7 @@ public class Main extends ApplicationAdapter {
 
         update(Gdx.graphics.getDeltaTime());
 
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
 
         for (var bunny : bunnies)
