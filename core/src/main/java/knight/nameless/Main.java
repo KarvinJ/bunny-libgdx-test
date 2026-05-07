@@ -53,12 +53,14 @@ public class Main extends ApplicationAdapter {
 
         for (int i = 0; i <= 100; i++) {
 
-            var touchPos = new Vector3();
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
+            var touchPos = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
 
-            var bunny = new Bunny(bunnyTexture, touchPos.x, touchPos.y);
-            bunny.setScreenBounds(new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+            var bunny = new Bunny(
+                bunnyTexture,
+                touchPos.x,
+                touchPos.y,
+                new Vector2(SCREEN_WIDTH, SCREEN_HEIGHT)
+            );
 
             bunnies.add(bunny);
         }
@@ -86,8 +88,8 @@ public class Main extends ApplicationAdapter {
         for (var bunny : bunnies)
             bunny.draw(batch);
 
-        font.draw(batch, String.format("FPS: " + Gdx.graphics.getFramesPerSecond()), 20, SCREEN_HEIGHT - 20);
-        font.draw(batch, String.format("Count: " + bunnies.size), 20, SCREEN_HEIGHT - 80);
+        font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 20, SCREEN_HEIGHT - 20);
+        font.draw(batch, "Count: " + bunnies.size, 20, SCREEN_HEIGHT - 80);
 
         batch.end();
     }

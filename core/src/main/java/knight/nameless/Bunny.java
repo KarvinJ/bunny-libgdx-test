@@ -10,13 +10,13 @@ public class Bunny {
     private final Vector2 position;
     private final Vector2 velocity;
     private final Texture texture;
-    private Vector2 screenBounds;
+    private final Vector2 screenBounds;
 
-    Bunny(Texture texture, float positionX, float positionY) {
+    Bunny(Texture texture, float positionX, float positionY, Vector2 screenBounds) {
         this.texture = texture;
         position = new Vector2(positionX, positionY);
         velocity = new Vector2(MathUtils.random(-200, 200), MathUtils.random(-200, 200));
-        screenBounds = Vector2.Zero;
+        this.screenBounds = screenBounds;
     }
 
     public void update(float deltaTime) {
@@ -32,10 +32,6 @@ public class Bunny {
 
     public void draw(SpriteBatch batch) {
         batch.draw(texture, position.x, position.y);
-    }
-
-    public void setScreenBounds(Vector2 screenBounds) {
-        this.screenBounds = screenBounds;
     }
 
     public void dispose() {
