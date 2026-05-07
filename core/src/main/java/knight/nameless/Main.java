@@ -80,8 +80,8 @@ public class Main extends ApplicationAdapter {
         for (var bunny : bunnies)
             bunny.draw(batch);
 
-        font.draw(batch, String.format("FPS: %d", Gdx.graphics.getFramesPerSecond()), 20, SCREEN_HEIGHT - 20);
-        font.draw(batch, String.format("Count: %d", bunnies.size), 20, SCREEN_HEIGHT - 80);
+        font.draw(batch, String.format("FPS: " + Gdx.graphics.getFramesPerSecond()), 20, SCREEN_HEIGHT - 20);
+        font.draw(batch, String.format("Count: " + bunnies.size), 20, SCREEN_HEIGHT - 80);
 
         batch.end();
     }
